@@ -25,7 +25,7 @@ import { useToast } from '@/hooks/use-toast'; // For notifications
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Added Tabs
 import { createConcept } from '@/data/models';
 import ManageTemplatesModal from './ManageTemplatesModal'; // Import ManageTemplatesModal
-import { getAllNovelMetadata, getNovelData } from '@/lib/indexedDb'; // For fetching novel name and full novel data
+import { getAllNovelMetadata, getNovelData } from '@/lib/api';
 import { tokenCount } from '@/lib/utils'; // For estimating token count
 
 const NO_TEMPLATE_VALUE = "__no_template__"; // Constant for "None" option

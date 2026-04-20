@@ -37,8 +37,8 @@ import {
 } from "@/components/ui/dropdown-menu"; // Import DropdownMenu components
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import * as idb from '@/lib/indexedDb';
-import { saveAllNovelMetadata } from '@/lib/indexedDb';
+import * as idb from '@/lib/api';
+import { saveAllNovelMetadata } from '@/lib/api';
 import { getDefaultConceptTemplates } from '@/data/models';
 
 const NovelGridView = () => {

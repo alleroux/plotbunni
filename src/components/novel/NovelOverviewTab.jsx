@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
 import { useData } from '../../context/DataContext';
-import { updateNovelMetadata, getAllNovelMetadata } from '../../lib/indexedDb';
+import { updateNovelMetadata, getAllNovelMetadata } from '../../lib/api';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';

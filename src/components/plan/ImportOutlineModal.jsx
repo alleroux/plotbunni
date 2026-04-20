@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useData } from '../../context/DataContext';
-import { getAllNovelMetadata } from '@/lib/indexedDb'; // Import getAllNovelMetadata
+import { getAllNovelMetadata } from '@/lib/api';
 import { createAct, createChapter, createScene } from '@/data/models';
 import { WandSparkles } from 'lucide-react';
 import { AISuggestionModal } from '../ai/AISuggestionModal';

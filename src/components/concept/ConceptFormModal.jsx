@@ -23,7 +23,7 @@ import { useData } from '@/context/DataContext';
 import { useSettings } from '@/context/SettingsContext'; // For AI settings
 import { AISuggestionModal } from '@/components/ai/AISuggestionModal'; // For AI suggestions
 import { useToast } from '@/hooks/use-toast'; // For notifications
-import { getAllNovelMetadata, getNovelData } from '@/lib/indexedDb'; // For fetching novel name and full novel data
+import { getAllNovelMetadata, getNovelData } from '@/lib/api';
 import { tokenCount } from '@/lib/utils'; // For estimating token count
 // import { createConcept } from '@/data/models'; // createConcept is not used here
 // import { defaultConceptTemplates } from '@/data/conceptTemplates'; // Will use conceptTemplates from DataContext
