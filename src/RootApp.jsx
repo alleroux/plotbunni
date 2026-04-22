@@ -11,13 +11,23 @@ import { SettingsProvider } from './context/SettingsContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import AuthCallbackPage from './pages/AuthCallbackPage';
+import BillingPage from './pages/BillingPage';
+import BillingSuccessPage from './pages/BillingSuccessPage';
+import AdminPage from './pages/AdminPage';
 
 const App = lazy(() => import('./App'));
 const NovelGridView = lazy(() => import('./components/novel/NovelGridView'));
 
 function RequireAuth({ children }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+  if (loading) return null;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return children;
+}
+
+function AdminGuard({ children }) {
+  const { user } = useAuth();
+  if (!user?.isAdmin) return <Navigate to="/" replace />;
   return children;
 }
 
@@ -57,6 +67,18 @@ const router = createHashRouter([
   {
     path: '/novel/:novelId',
     element: <RequireAuth><NovelEditorLayout /></RequireAuth>,
+  },
+  {
+    path: '/billing',
+    element: <RequireAuth><BillingPage /></RequireAuth>,
+  },
+  {
+    path: '/billing/success',
+    element: <RequireAuth><BillingSuccessPage /></RequireAuth>,
+  },
+  {
+    path: '/admin',
+    element: <RequireAuth><AdminGuard><AdminPage /></AdminGuard></RequireAuth>,
   },
 ]);
 
