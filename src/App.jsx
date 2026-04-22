@@ -2,8 +2,9 @@ import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useData } from './context/DataContext.jsx';
 import { useSettings } from './context/SettingsContext.jsx';
-import { getAllNovelMetadata } from '@/lib/indexedDb.js'; // Import for fetching novel name
+import { getAllNovelMetadata } from '@/lib/api.js';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+import { SaveIndicator } from "@/components/ui/SaveIndicator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -314,6 +315,7 @@ function App({ novelId }) { // novelId is passed as a prop from NovelEditorLayou
           </Suspense>
         </ScrollArea>
       </div>
+      <SaveIndicator />
     </div>
   );
 }

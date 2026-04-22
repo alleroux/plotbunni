@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { createConcept, createAct, createChapter, createScene, createConceptTemplate, getDefaultConceptTemplates } from '@/data/models';
-import { getNovelData, saveNovelData } from '@/lib/indexedDb';
+import { getNovelData, saveNovelData } from '@/lib/api';
 
 const DataContext = createContext();
 
@@ -34,6 +34,7 @@ export const DataProvider = ({ children, novelId }) => { // Accept novelId as a 
   
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [currentNovelId, setCurrentNovelId] = useState(null); // Track the novelId for which data is loaded
+  const [isSaving, setIsSaving] = useState(false);
 
   // --- CRUD Operations (largely unchanged, operate on current state) ---
 
@@ -452,10 +453,10 @@ export const DataProvider = ({ children, novelId }) => { // Accept novelId as a 
     }
   }, [novelId, currentNovelId, isDataLoaded, initializeDefaultNovelDataStructure]);
 
-  // Save data to IndexedDB on changes
+  // Save data to the API on changes, debounced to avoid hammering the server on every keystroke
   useEffect(() => {
     if (!isDataLoaded || !novelId || novelId !== currentNovelId) {
-      return; // Don't save if not loaded, no novelId, or novelId mismatch (still loading new one)
+      return;
     }
 
     const novelDataToSave = {
@@ -473,12 +474,17 @@ export const DataProvider = ({ children, novelId }) => { // Accept novelId as a 
       chapters,
       scenes,
       actOrder,
-      conceptTemplates, // Include conceptTemplates in saved data
-      // last_saved_date: new Date().toISOString(), // This is handled by saveNovelData in indexedDb.js
+      conceptTemplates,
     };
-    saveNovelData(novelId, novelDataToSave)
-      .catch(error => console.error(`DataContext: Failed to save data for novel ${novelId}:`, error));
-      
+
+    const timeoutId = setTimeout(() => {
+      setIsSaving(true);
+      saveNovelData(novelId, novelDataToSave)
+        .catch(error => console.error(`DataContext: Failed to save data for novel ${novelId}:`, error))
+        .finally(() => setIsSaving(false));
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
   }, [authorName, synopsis, coverImage, pointOfView, genre, timePeriod, targetAudience, themes, tone, concepts, acts, chapters, scenes, actOrder, conceptTemplates, isDataLoaded, novelId, currentNovelId]);
 
 
@@ -517,8 +523,9 @@ export const DataProvider = ({ children, novelId }) => { // Accept novelId as a 
     updateScene,
     deleteScene,
     updateSceneOrderInChapter,
-    isDataLoaded, // Expose isDataLoaded for UI to show loading states if needed
-    currentNovelId, // Expose currentNovelId for debugging or advanced conditional rendering
+    isDataLoaded,
+    isSaving,
+    currentNovelId,
     
     // Reordering functions and helpers
     moveAct: useCallback((actId, direction) => {

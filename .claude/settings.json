@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "PowerShell(gh repo create alleroux/plotbunni-backend --private --source=\"C:\\\\Users\\\\atrox\\\\OneDrive\\\\Documents\\\\dev\\\\plotbunni-backend\" --remote=origin --push)",
+      "Bash(docker --version)",
+      "PowerShell(docker --version 2>&1)",
+      "PowerShell(docker --version)",
+      "PowerShell(go version)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); docker --version; go version)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); Set-Location \"C:\\\\Users\\\\atrox\\\\OneDrive\\\\Documents\\\\dev\\\\plotbunni-backend\"; docker compose up -d)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); Set-Location \"C:\\\\Users\\\\atrox\\\\OneDrive\\\\Documents\\\\dev\\\\plotbunni-backend\"; docker compose ps)",
+      "Bash(git push *)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); $env:DATABASE_URL = \"postgres://plotbunni:plotbunni@localhost:5432/plotbunni?sslmode=disable\"; Set-Location \"C:\\\\Users\\\\atrox\\\\OneDrive\\\\Documents\\\\dev\\\\plotbunni-backend\"; go run .)",
+      "PowerShell(Invoke-RestMethod -Uri http://localhost:8080/api/v1/novels -Method Get)",
+      "PowerShell($r = Invoke-WebRequest -Uri http://localhost:8080/api/v1/novels -Method Post -ContentType \"application/json\" -Body '{\"name\":\"Test Novel\",\"synopsis\":\"A test synopsis\",\"author\":\"Test Author\"}'; Write-Output \"Status: $\\($r.StatusCode\\)\"; Write-Output \"Body: $\\($r.Content\\)\")",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); curl.exe -s -X POST http://localhost:8080/api/v1/novels -H \"Content-Type: application/json\" -d \"{\\\\\"name\\\\\":\\\\\"Test Novel\\\\\",\\\\\"synopsis\\\\\":\\\\\"A test synopsis\\\\\",\\\\\"author\\\\\":\\\\\"Test Author\\\\\"}\"; Write-Output \"\"; curl.exe -s http://localhost:8080/api/v1/novels)",
+      "PowerShell($id = \"f4148066-9193-4f91-8167-91cdd7f74468\"; curl.exe -s \"http://localhost:8080/api/v1/novels/$id\"; Write-Output \"\"; curl.exe -s -X DELETE \"http://localhost:8080/api/v1/novels/e51ccaa4-d019-42a8-b97c-96557acad717\"; Write-Output \"DELETE status: $LASTEXITCODE\"; curl.exe -s http://localhost:8080/api/v1/novels)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); Set-Location \"C:\\\\Users\\\\atrox\\\\OneDrive\\\\Documents\\\\dev\\\\plotbunni\"; npm run build 2>&1 | Select-Object -Last 20)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); Set-Location \"C:\\\\Users\\\\atrox\\\\OneDrive\\\\Documents\\\\dev\\\\plotbunni\"; npm run build 2>&1 | Select-Object -Last 15)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); docker exec plotbunni-backend-db-1 psql -U plotbunni -d plotbunni -c \"\\\\du\")",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); curl.exe -s -i -H \"Origin: http://localhost:5173\" http://localhost:8080/api/v1/novels)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); curl.exe -s -i -X OPTIONS -H \"Origin: http://localhost:5173\" -H \"Access-Control-Request-Method: GET\" -H \"Access-Control-Request-Headers: content-type\" http://localhost:8080/api/v1/novels)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\atrox\\OneDrive\\Documents\\dev\\plotbunni-backend"
+    ]
+  }
+}
