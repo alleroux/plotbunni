@@ -3,23 +3,29 @@ import { useTranslation } from 'react-i18next';
 import {
   createHashRouter,
   RouterProvider,
+  Navigate,
   useParams,
 } from 'react-router-dom';
 import { DataProvider } from './context/DataContext';
 import { SettingsProvider } from './context/SettingsContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
+import AuthCallbackPage from './pages/AuthCallbackPage';
 
 const App = lazy(() => import('./App'));
 const NovelGridView = lazy(() => import('./components/novel/NovelGridView'));
 
-// Novel Editor View Layout
-// Extracts novelId from params and provides DataContext for that novel
+function RequireAuth({ children }) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return children;
+}
+
 const NovelEditorLayout = () => {
   const { novelId } = useParams();
   const { t } = useTranslation();
 
   if (!novelId) {
-    // This case should ideally be handled by routing or a redirect
-    // For now, show a message or redirect to home.
     return (
       <div>
         <p>{t('root_app_error_no_novel_id')}</p>
@@ -37,22 +43,32 @@ const NovelEditorLayout = () => {
 
 const router = createHashRouter([
   {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/auth/callback',
+    element: <AuthCallbackPage />,
+  },
+  {
     path: '/',
-    element: <NovelGridView />,
+    element: <RequireAuth><NovelGridView /></RequireAuth>,
   },
   {
     path: '/novel/:novelId',
-    element: <NovelEditorLayout />, // Use a layout component to grab params
+    element: <RequireAuth><NovelEditorLayout /></RequireAuth>,
   },
 ]);
 
 function RootApp() {
   return (
-    <SettingsProvider>
-      <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading…</div>}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </SettingsProvider>
+    <AuthProvider>
+      <SettingsProvider>
+        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading…</div>}>
+          <RouterProvider router={router} />
+        </Suspense>
+      </SettingsProvider>
+    </AuthProvider>
   );
 }
 

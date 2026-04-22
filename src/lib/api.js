@@ -1,8 +1,14 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const TOKEN_KEY = 'plotbunni_auth_token';
+
+function getAuthHeader() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
 
 async function apiFetch(path, options = {}) {
   const res = await fetch(`${API_BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options.headers },
+    headers: { 'Content-Type': 'application/json', ...getAuthHeader(), ...options.headers },
     ...options,
   });
   if (!res.ok) {
